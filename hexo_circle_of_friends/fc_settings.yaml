@@ -72,11 +72,6 @@ BLOCK_SITE: [
 #    https://example.com/, # 屏蔽 https://example.com/
 #    .*\.com,  # 含有.com的全部屏蔽
 #    ^http://,  # http开头的全部屏蔽
-    https://shakaianee.top/,    # 邮件告知
-    https://www.lyshark.com/,   # 非兴趣领域、更新频率过高
-    https://www.oldit.cn,       # RSS 设置错误
-    https://prong.ltd,          # RSS 设置错误
-    https://blog.mnxy.eu.org/,  # RSS 发布时间错误
 ]
 
 # 每个友链最多获取几篇文章，此值越大，则抓取的文章上限越多，相应地运行速度也会降低，反之亦然
