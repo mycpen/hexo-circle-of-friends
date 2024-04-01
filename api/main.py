@@ -94,6 +94,17 @@ def post(link: str = None, num: int = -1, rule: str = "created"):
     return query_post(link, num, rule)
 
 
+# mycpen custom
+@app.get("/postv2", tags=["PUBLIC_API"], summary="返回指定博主的所有文章")
+def post(name: str = None, num: int = -1, rule: str = "created"):
+    """返回指定博主的数据库内文章信息列表
+    - name: 博主名称
+    - num: 指定博主的文章信息列表 按rule排序后的顺序的前num篇
+    - rule: 文章排序规则（创建时间/更新时间）
+    """
+    return query_postv2(name, num, rule)
+
+
 @app.get("/friendstatus", tags=["PUBLIC_API"], summary="按照指定时间划分失联/未失联的友链信息")
 def friend_status(days: int = OUTDATE_CLEAN):
     """按照指定时间划分失联/未失联的友链信息，默认距离今天2个月以上（60天以上）判定为失联友链
