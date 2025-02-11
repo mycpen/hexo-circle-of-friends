@@ -92,8 +92,10 @@ jobs:
         commit-message: "Update data.db"
         files: data.db
         rebase: 'true'
-        name: ${{ env.GITHUB_NAME }}
-        email: ${{ env.GITHUB_EMAIL }}
+        # name: ${{ env.GITHUB_NAME }}
+        # email: ${{ env.GITHUB_EMAIL }}
+        name: github-actions[bot]
+        email: github-actions[bot]@users.noreply.github.com
 
     - name: mongodb Update posts # mongodb
       if: ${{ env.STORAGE_TYPE == 'mongodb' }}

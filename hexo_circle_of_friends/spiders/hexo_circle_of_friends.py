@@ -167,7 +167,8 @@ class FriendpageLinkSpider(scrapy.Spider):
             friend[1] += "/" if not friend[1].endswith("/") else ""
             if self.settings["SETTINGS_FRIENDS_LINKS"]['enable'] and len(friend) == 4:
                 # 针对配置项中开启了自定义suffix的友链url进行处理
-                url = friend[1] + friend[3]
+                # url = friend[1] + friend[3]
+                url = friend[1] + friend[3] if not friend[3].startswith('http') else friend[3]
                 yield CRequest(url, self.post_feed_parse, meta={"friend": friend}, errback=self.errback_handler)
                 self.friend_list.put(friend[:3])
                 continue

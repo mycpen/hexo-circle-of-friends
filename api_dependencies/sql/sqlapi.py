@@ -193,6 +193,48 @@ def query_post(link, num, rule, ):
     return api_json
 
 
+# mycpen custom
+def query_postv2(name, num, rule, ):
+    session = db_interface.db_init()
+    if name is None:
+        user = session.query(Friend).filter_by(error=False).order_by(func.random()).first()
+        name = user.name
+    else:
+        name = name
+        user = session.query(Friend).filter(Friend.name.like("{:s}".format(name))).first()
+
+    posts = session.query(Post).filter(Post.author.like("{:s}".format(name))).order_by(desc(rule)).limit(
+        num if num > 0 else None).all()
+    session.close()
+
+    data = []
+    for floor, post in enumerate(posts):
+        itemlist = {
+            "title": post.title,
+            "link": post.link,
+            "created": post.created,
+            "updated": post.updated,
+            "floor": floor + 1
+        }
+        data.append(itemlist)
+
+    if user:
+        api_json = {
+            "statistical_data": {
+                "name": user.name,
+                "link": user.link,
+                "avatar": user.avatar,
+                "article_num": len(posts)
+            },
+            "article_data": data
+        }
+    else:
+        # 如果user为空直接返回
+        return {"message": "not found"}
+
+    return api_json
+
+
 def query_friend_status(days):
     # 初始化数据库连接
     session = db_interface.db_init()
